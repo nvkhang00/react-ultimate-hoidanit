@@ -1,0 +1,98 @@
+.todo-container {
+    max-width: 600px;
+    margin: 50px auto;
+}
+
+.todo-container .todo-title {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(to right, #f5945c, #ebde20);
+    color: transparent;
+    background-clip: text;
+    margin: 15px 0;
+}
+
+.todo-new {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.todo-new input {
+    flex: 1;
+    font-size: 16px;
+    padding: 0 15px;
+    border-radius: 5px;
+    background-color: #f2f0f0;
+}
+
+.todo-new input:focus {
+    outline: 2px solid #3d9dee;
+    outline-offset: 2px;
+    background-color: white;
+}
+
+.todo-new input:focus::placeholder {
+    color: transparent;
+}
+
+.todo-new button {
+    padding: 10px 30px;
+    background-color: #3d9dee;
+    border: none;
+    font-size: 16px;
+    color: white;
+    border-radius: 5px;
+}
+
+.todo-container button:hover {
+    cursor: pointer;
+    background-color: #2794ec;
+    transition: background-color 0.3 ease-in-out;
+}
+
+.todo-data {
+    border-radius: 5px;
+    margin-top: 15px;
+    border: 2px solid #ccc;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.todo-image {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
+}
+
+.logo:hover {
+    filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .logo {
+        animation: logo-spin infinite 20s linear;
+    }
+}
