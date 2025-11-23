@@ -17,7 +17,12 @@ const App = () => {
   }
 
   const addNewTodo = (value) => {
-    alert(`call me ${value}`)
+    let id = todoList.length;
+    const newData = {
+      id: id + 1,
+      value
+    }
+    setTodoList([...todoList, newData])
   }
   return (
     <div className='todo-container'>
