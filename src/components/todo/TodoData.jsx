@@ -1,4 +1,4 @@
-const TodoData = ({ name, age, data }) => {
+const TodoData = ({ name, age, data, todoList }) => {
     // console.log('>>>> Check props:', props)
     // const name = props.name;
     // const age = props.age;
@@ -9,6 +9,7 @@ const TodoData = ({ name, age, data }) => {
             <div>My name is {name}</div>
             <div>Learning React</div>
             <div>Watching Youtube</div>
+            <div>{JSON.stringify(todoList)}</div>
         </div>
     );
 }
