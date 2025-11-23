@@ -9,18 +9,12 @@ const App = () => {
     { id: 1, name: 'Learning React' },
     { id: 2, name: 'Watching Youtube' }
   ])
-  const name = 'kenzongo';
-  const age = 25;
-  const data = {
-    address: 'travinh',
-    country: 'vietnam'
-  }
 
-  const addNewTodo = (value) => {
+  const addNewTodo = (name) => {
     let id = todoList.length;
     const newData = {
       id: id + 1,
-      value
+      name
     }
     setTodoList([...todoList, newData])
   }
@@ -31,9 +25,6 @@ const App = () => {
         addNewTodo={addNewTodo}
       />
       <TodoData
-        name={name}
-        age={age}
-        data={data}
         todoList={todoList}
       />
       <div className='todo-image'>

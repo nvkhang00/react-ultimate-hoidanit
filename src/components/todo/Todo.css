@@ -47,11 +47,15 @@
     border-radius: 5px;
 }
 
-.todo-container button:hover {
-    cursor: pointer;
+.todo-new button:hover {
     background-color: #2794ec;
     transition: background-color 0.3 ease-in-out;
 }
+
+.todo-container button:hover {
+    cursor: pointer;
+}
+
 
 .todo-data {
     border-radius: 5px;
@@ -62,6 +66,11 @@
     justify-content: center;
     flex-direction: column;
     gap: 15px;
+}
+
+.todo-items {
+    display: flex;
+    justify-content: space-between;
 }
 
 .todo-image {
