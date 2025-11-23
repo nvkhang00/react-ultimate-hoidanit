@@ -21,12 +21,14 @@ const App = () => {
       <TodoNew
         addNewTodo={addNewTodo}
       />
-      <TodoData
-        todoList={todoList}
-      />
-      <div className='todo-image'>
-        <img src={ReactLogo} className='logo' />
-      </div>
+      {Array.isArray(todoList) && todoList.length ?
+        < TodoData
+          todoList={todoList}
+        />
+        : <div className='todo-image'>
+          <img src={ReactLogo} className='logo' />
+        </div>
+      }
     </div>
   )
 }
