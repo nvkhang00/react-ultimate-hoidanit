@@ -29,9 +29,6 @@ const TodoNew = ({ addNewTodo }) => {
                     Add
                 </button>
             </div>
-            <div style={{ marginTop: '10px' }}>
-                My input value = {inputValue}
-            </div>
         </>
     );
 }
