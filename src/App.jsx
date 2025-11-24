@@ -1,8 +1,9 @@
-import './components/todo/Todo.css'
+import './components/todo/todo.css'
 import TodoData from './components/todo/TodoData'
 import TodoNew from './components/todo/TodoNew'
 import ReactLogo from './assets/react.svg'
 import { useState } from 'react'
+import './styles/global.css'
 
 const App = () => {
   const [todoList, setTodoList] = useState([])
