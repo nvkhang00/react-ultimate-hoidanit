@@ -1,15 +1,23 @@
-import { Input, Button } from 'antd';
-import axios from 'axios';
+import { Input, Button, notification } from 'antd';
 import { useState } from 'react';
+import { createUserAPI } from '../../services/api.service';
+import toast from 'react-hot-toast';
 const UserForm = () => {
     const [fullName, setFullname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
-    const handleClick = () => {
-        const URL_BACKEND = 'http://localhost:8080/api/v1/user'
-        const data = { fullName, email, password, phone }
-        axios.post(URL_BACKEND, data)
+    const handleClick = async () => {
+        const response = await createUserAPI(fullName, email, password, phone);
+        if (response.data) {
+            toast.success('Create User Successfully.', {
+                duration: 3000,
+                position: 'top-right',
+                style: {
+                    minWidth: '250px'
+                }
+            })
+        }
     }
     return (
         <div className='user-form' style={{ margin: '20px 0' }}>
