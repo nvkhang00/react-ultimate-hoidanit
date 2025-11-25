@@ -11,12 +11,20 @@ const UserForm = () => {
         const response = await createUserAPI(fullName, email, password, phone);
         if (response.data) {
             toast.success('Create User Successfully.', {
-                duration: 3000,
+                duration: 2000,
                 position: 'top-right',
                 style: {
                     minWidth: '250px'
                 }
-            })
+            });
+        } else {
+            toast.error(JSON.stringify(response.message), {
+                duration: 2000,
+                position: 'top-right',
+                style: {
+                    maxWidth: '250px'
+                }
+            });
         }
     }
     return (
