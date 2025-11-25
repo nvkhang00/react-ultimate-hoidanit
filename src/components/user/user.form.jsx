@@ -41,7 +41,7 @@ const UserForm = ({ loadDataTable }) => {
                 duration: 2000,
                 position: 'top-right',
                 style: {
-                    maxWidth: '320px',
+                    maxWidth: '250px',
                     display: 'flex',
                     alignItems: 'flex-start',
                     justifyContent: 'space-between',
