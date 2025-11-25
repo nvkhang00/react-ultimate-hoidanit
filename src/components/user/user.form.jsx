@@ -2,7 +2,7 @@ import { Input, Button, Modal } from 'antd';
 import { useState } from 'react';
 import { createUserAPI } from '../../services/api.service';
 import toast from 'react-hot-toast';
-const UserForm = () => {
+const UserForm = ({ loadDataTable }) => {
     const [fullName, setFullname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -34,7 +34,8 @@ const UserForm = () => {
                     justifyContent: 'space-between'
                 }
             });
-            setIsModalOpen(false);
+            resetAndCloseModal();
+            await loadDataTable();
         } else {
             toast.error(formatErrorMessage(response.message), {
                 duration: 2000,
@@ -48,6 +49,15 @@ const UserForm = () => {
             });
         }
     }
+
+    const resetAndCloseModal = () => {
+        setIsModalOpen(false);
+        setFullname('');
+        setEmail('');
+        setPassword('');
+        setPhone('');
+    }
+
     return (
         <div className='user-form' style={{ margin: '10px 0' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -62,7 +72,7 @@ const UserForm = () => {
                     closable={{ 'aria-label': 'Custom Close Button' }}
                     open={isModalOpen}
                     onOk={handleClick}
-                    onCancel={() => setIsModalOpen(false)}
+                    onCancel={resetAndCloseModal}
                     okText={'Create'}
                     maskClosable={false}
                 >

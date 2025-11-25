@@ -1,14 +1,5 @@
-import { Table } from 'antd';
-import { useEffect, useState } from 'react';
-import { fetchAllUser } from '../../services/api.service';
-const UserTable = () => {
-    const [dataTable, setDataTable] = useState([
-    ]);
-
-    useEffect(() => {
-        console.log('>>>>Run 1');
-        loadDataTable();
-    }, [])
+import { Table } from 'antd'
+const UserTable = ({ dataTable }) => {
     const columns = [
         {
             title: 'ID',
@@ -26,13 +17,6 @@ const UserTable = () => {
             key: 'email',
         },
     ];
-
-    const loadDataTable = async () => {
-        const response = await fetchAllUser();
-        setDataTable(response.data)
-    }
-
-    console.log('>>>>Run 0');
     return (
         <Table columns={columns} dataSource={dataTable} rowKey={'_id'} />
     );
