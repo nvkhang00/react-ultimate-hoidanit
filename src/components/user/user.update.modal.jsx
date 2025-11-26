@@ -1,9 +1,13 @@
 import { Input, Modal } from 'antd';
 import { useEffect, useState } from 'react';
-import { createUserAPI } from '../../services/api.service';
+import { updateUserAPI } from '../../services/api.service';
 import toast from 'react-hot-toast';
 
-const UpdateUserModal = ({ isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate }) => {
+const UpdateUserModal = ({ isModalUpdateOpen,
+    setIsModalUpdateOpen,
+    dataUpdate,
+    setDataUpdate,
+    loadDataTable }) => {
     const [id, setId] = useState('')
     const [fullName, setFullname] = useState('');
     const [phone, setPhone] = useState('');
@@ -35,7 +39,7 @@ const UpdateUserModal = ({ isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, 
     }
 
     const handleClick = async () => {
-        const response = await createUserAPI(fullName, email, password, phone);
+        const response = await updateUserAPI(id, fullName, phone);
         if (response.data) {
             toast.success('Create User Successfully.', {
                 duration: 2000,
@@ -48,7 +52,7 @@ const UpdateUserModal = ({ isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, 
                 }
             });
             resetAndCloseModal();
-            // await loadDataTable();
+            await loadDataTable();
         } else {
             toast.error(formatErrorMessage(response.message), {
                 duration: 2000,

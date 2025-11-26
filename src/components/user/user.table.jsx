@@ -2,7 +2,7 @@ import { Space, Table } from 'antd'
 import UpdateUserModal from './user.update.modal';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useState } from 'react';
-const UserTable = ({ dataTable }) => {
+const UserTable = ({ dataTable, loadDataTable }) => {
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
     const [dataUpdate, setDataUpdate] = useState(null);
     const columns = [
@@ -48,6 +48,7 @@ const UserTable = ({ dataTable }) => {
                 setIsModalUpdateOpen={setIsModalUpdateOpen}
                 dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
+                loadDataTable={loadDataTable}
             />
         </>
     );
