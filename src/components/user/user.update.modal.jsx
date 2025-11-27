@@ -1,7 +1,7 @@
 import { Input, Modal } from 'antd';
 import { useEffect, useState } from 'react';
 import { updateUserAPI } from '../../services/api.service';
-import toast from 'react-hot-toast';
+import { showToast } from '../../utils/toast';
 
 const UpdateUserModal = ({ isModalUpdateOpen,
     setIsModalUpdateOpen,
@@ -16,19 +16,6 @@ const UpdateUserModal = ({ isModalUpdateOpen,
         fillDataUpdate();
     }, [dataUpdate]);
 
-    const formatErrorMessage = (message) => {
-        if (Array.isArray(message)) {
-            return (
-                <ul style={{ backgroundColor: 'white', listStyle: 'inherit', paddingLeft: '20px', marginTop: '-5px' }}>
-                    {message.map((item, index) => (
-                        <li key={`${item}-${index}`}>{item}</li>
-                    ))}
-                </ul>
-            );
-        }
-        return message;
-    };
-
     const fillDataUpdate = () => {
         if (dataUpdate) {
             const { _id, fullName, phone } = dataUpdate;
@@ -41,29 +28,11 @@ const UpdateUserModal = ({ isModalUpdateOpen,
     const handleClick = async () => {
         const response = await updateUserAPI(id, fullName, phone);
         if (response.data) {
-            toast.success('Create User Successfully.', {
-                duration: 2000,
-                position: 'top-right',
-                style: {
-                    minWidth: '250px',
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    justifyContent: 'space-between'
-                }
-            });
+            showToast.success('Update user successfully.');
             resetAndCloseModal();
             await loadDataTable();
         } else {
-            toast.error(formatErrorMessage(response.message), {
-                duration: 2000,
-                position: 'top-right',
-                style: {
-                    maxWidth: '250px',
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    justifyContent: 'space-between',
-                }
-            });
+            showToast.error(response.message);
         }
     }
 

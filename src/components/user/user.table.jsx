@@ -1,8 +1,10 @@
-import { Space, Table } from 'antd'
+import { Popconfirm, Space, Table } from 'antd'
 import UpdateUserModal from './user.update.modal';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import UserDetail from './user.view.detail';
+import { deleteUserAPI } from '../../services/api.service';
+import { showToast } from '../../utils/toast';
 const UserTable = ({ dataTable, loadDataTable }) => {
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
     const [dataUpdate, setDataUpdate] = useState(null);
@@ -15,6 +17,16 @@ const UserTable = ({ dataTable, loadDataTable }) => {
         setOpen(false);
         setDetailUserData(null);
     };
+    const handleDelete = async (id) => {
+        const response = await deleteUserAPI(id);
+        debugger
+        if (response.data) {
+            showToast.success('Delete user successfully.');
+            await loadDataTable();
+        } else {
+            showToast.error(response.message);
+        }
+    }
     const columns = [
         {
             title: 'ID',
@@ -50,7 +62,15 @@ const UserTable = ({ dataTable, loadDataTable }) => {
                         }}
                         style={{ color: 'orange', cursor: 'pointer', fontSize: '1.3em' }}
                     />
-                    <DeleteOutlined style={{ color: 'red', cursor: 'pointer', fontSize: '1.3em' }} />
+                    <Popconfirm
+                        title="Delete user"
+                        description="Are you sure to delete this user?"
+                        onConfirm={() => handleDelete(record._id)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <DeleteOutlined style={{ color: 'red', cursor: 'pointer', fontSize: '1.3em' }} />
+                    </Popconfirm>
                 </Space>
         },
     ];
