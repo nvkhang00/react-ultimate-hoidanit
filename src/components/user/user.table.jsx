@@ -2,16 +2,31 @@ import { Space, Table } from 'antd'
 import UpdateUserModal from './user.update.modal';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useState } from 'react';
+import UserDetail from './user.view.detail';
 const UserTable = ({ dataTable, loadDataTable }) => {
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
     const [dataUpdate, setDataUpdate] = useState(null);
+    const [open, setOpen] = useState(false);
+    const [detailUserData, setDetailUserData] = useState(null);
+    const showDrawer = () => {
+        setOpen(true);
+    };
+    const onClose = () => {
+        setOpen(false);
+        setDetailUserData(null);
+    };
     const columns = [
         {
             title: 'ID',
             dataIndex: '_id',
             key: '_id',
             render: (_, record) =>
-                <a href='#'>{record._id}</a>
+                <a onClick={() => {
+                    showDrawer();
+                    setDetailUserData(record)
+                }}>
+                    {record._id}
+                </a>
         },
         {
             title: 'Full Name',
@@ -49,6 +64,11 @@ const UserTable = ({ dataTable, loadDataTable }) => {
                 dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
                 loadDataTable={loadDataTable}
+            />
+            <UserDetail
+                detailUserData={detailUserData}
+                open={open}
+                onClose={onClose}
             />
         </>
     );
