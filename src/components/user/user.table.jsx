@@ -19,7 +19,6 @@ const UserTable = ({ dataTable, loadDataTable }) => {
     };
     const handleDelete = async (id) => {
         const response = await deleteUserAPI(id);
-        debugger
         if (response.data) {
             showToast.success('Delete user successfully.');
             await loadDataTable();
