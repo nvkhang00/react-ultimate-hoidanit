@@ -1,10 +1,36 @@
 import { Drawer } from "antd";
+import { useEffect, useState } from "react";
 
 const UserDetail = (
     { detailUserData,
         open,
         onClose }
 ) => {
+    const [selectedFile, setSelectedFile] = useState();
+    const [imgPreview, setImgPreview] = useState();
+
+    useEffect(() => {
+        if (!selectedFile) {
+            setImgPreview(undefined);
+            return;
+        }
+        const url = URL.createObjectURL(selectedFile);
+        setImgPreview(url);
+
+        return () => {
+            URL.revokeObjectURL(url);
+        }
+    }, [selectedFile])
+
+    const handleOnChangImg = (e) => {
+        const files = e.target.files;
+        if (!files || files.length === 0) {
+            setSelectedFile(undefined);
+            return;
+        }
+        setSelectedFile(files[0]);
+    }
+
     return (
         <Drawer
             width={'40vw'}
@@ -21,14 +47,18 @@ const UserDetail = (
                         <p>Email: {detailUserData.email}</p>
                         <p>Phone number: {detailUserData.phone}</p>
                         <p>Avatar:</p>
-                        <div style={{ width: '300px', height: '250px' }}>
+                        <div style={{
+                            width: '150px',
+                            height: '100px',
+                            border: '1px solid #ccc'
+                        }}>
                             <img
                                 src={`${import.meta.env.VITE_BASE_ULR}/images/avatar/${detailUserData.avatar}`}
                                 alt="avatar"
                                 style={{
                                     width: '100%',
                                     height: '100%',
-                                    objectFit: 'cover',
+                                    objectFit: 'contain',
                                 }}
                             />
                         </div>
@@ -37,7 +67,6 @@ const UserDetail = (
                                 style={{
                                     display: 'block',
                                     width: 'fit-content',
-                                    height: '30px',
                                     backgroundColor: 'orange',
                                     padding: '8px 15px',
                                     marginTop: '10px',
@@ -48,8 +77,29 @@ const UserDetail = (
                             >
                                 Upload Avatar
                             </label>
-                            <input type="file" id='btnUpload' hidden />
+                            <input
+                                onChange={handleOnChangImg}
+                                type="file" id='btnUpload'
+                                hidden
+                            />
                         </div>
+                        {imgPreview &&
+                            <div style={{
+                                width: '150px',
+                                height: '100px',
+                                border: '1px solid #ccc'
+                            }}>
+                                <img
+                                    src={imgPreview}
+                                    alt="avatar"
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'contain',
+                                    }}
+                                />
+                            </div>
+                        }
                     </>
                     :
                     <p>No Data</p>

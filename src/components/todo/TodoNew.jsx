@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 const TodoNew = ({ addNewTodo }) => {
-    const [inputValue, setInputValue] = useState("kenzongo")
+    const [inputValue, setInputValue] = useState("")
     const handleOnChange = (e) => {
         setInputValue(e.target.value);
     }

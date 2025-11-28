@@ -67,6 +67,7 @@ const UserTable = ({ dataTable, loadDataTable }) => {
                         onConfirm={() => handleDelete(record._id)}
                         okText="Yes"
                         cancelText="No"
+                        placement='left'
                     >
                         <DeleteOutlined style={{ color: 'red', cursor: 'pointer', fontSize: '1.3em' }} />
                     </Popconfirm>
