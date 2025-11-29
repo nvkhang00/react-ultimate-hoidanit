@@ -1,5 +1,5 @@
 import { Input, Modal } from 'antd';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { updateUserAPI } from '../../services/api.service';
 import { showToast } from '../../utils/toast';
 
@@ -12,18 +12,32 @@ const UpdateUserModal = ({ isModalUpdateOpen,
     const [fullName, setFullname] = useState('');
     const [phone, setPhone] = useState('');
 
-    useEffect(() => {
-        fillDataUpdate();
-    }, [dataUpdate]);
+    // Solution 1
+    // const fillDataUpdate = useCallback(() => {
+    //     if (dataUpdate) {
+    //         const { _id, fullName, phone } = dataUpdate;
+    //         setId(_id);
+    //         setFullname(fullName);
+    //         setPhone(phone);
+    //     }
+    // }, [dataUpdate])
 
-    const fillDataUpdate = () => {
-        if (dataUpdate) {
-            const { _id, fullName, phone } = dataUpdate;
-            setId(_id);
-            setFullname(fullName);
-            setPhone(phone);
+    // useEffect(() => {
+    //     fillDataUpdate();
+    // }, [fillDataUpdate]);
+
+    //Solution 2
+    useEffect(() => {
+        const fillDataUpdate = () => {
+            if (dataUpdate) {
+                const { _id, fullName, phone } = dataUpdate;
+                setId(_id);
+                setFullname(fullName);
+                setPhone(phone);
+            }
         }
-    }
+        fillDataUpdate();
+    }, [dataUpdate])
 
     const handleClick = async () => {
         const response = await updateUserAPI(id, fullName, phone);

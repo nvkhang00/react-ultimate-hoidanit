@@ -1,13 +1,24 @@
-import { Drawer } from "antd";
+import { Button, Drawer } from "antd";
 import { useEffect, useState } from "react";
+import { updateUserAPI, uploadAvatarAPI } from "../../services/api.service";
+import { showToast } from "../../utils/toast";
 
 const UserDetail = (
-    { detailUserData,
+    {
+        detailUserData,
         open,
-        onClose }
+        setOpen,
+        setDetailUserData,
+        loadDataTable
+    }
 ) => {
     const [selectedFile, setSelectedFile] = useState();
     const [imgPreview, setImgPreview] = useState();
+    const onClose = () => {
+        setOpen(false);
+        setDetailUserData(null);
+        setSelectedFile(undefined);
+    };
 
     useEffect(() => {
         if (!selectedFile) {
@@ -21,6 +32,26 @@ const UserDetail = (
             URL.revokeObjectURL(url);
         }
     }, [selectedFile])
+
+    const handleUpdateAvatar = async () => {
+        const resUploadAvatar = await uploadAvatarAPI(selectedFile);
+        if (resUploadAvatar.data && detailUserData) {
+            const { _id, fullName, phone } = detailUserData;
+            const newAvatar = resUploadAvatar.data.fileUploaded;
+            const resUpdateUser = await updateUserAPI(_id, fullName, phone, newAvatar);
+            if (resUpdateUser.data) {
+                setSelectedFile(undefined);
+                setDetailUserData({ ...detailUserData, avatar: newAvatar })
+                await loadDataTable();
+                showToast.success('Update successfully.');
+            }
+            else {
+                showToast.error(resUpdateUser.message);
+            }
+        } else {
+            showToast.error(resUploadAvatar.message)
+        }
+    }
 
     const handleOnChangImg = (e) => {
         const files = e.target.files;
@@ -84,21 +115,28 @@ const UserDetail = (
                             />
                         </div>
                         {imgPreview &&
-                            <div style={{
-                                width: '150px',
-                                height: '100px',
-                                border: '1px solid #ccc'
-                            }}>
-                                <img
-                                    src={imgPreview}
-                                    alt="avatar"
-                                    style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: 'contain',
-                                    }}
-                                />
-                            </div>
+                            <>
+                                <div style={{
+                                    width: '150px',
+                                    height: '100px'
+                                }}>
+                                    <img
+                                        src={imgPreview}
+                                        alt="avatar"
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'contain',
+                                        }}
+                                    />
+                                </div>
+                                <Button
+                                    onClick={handleUpdateAvatar}
+                                    style={{ alignSelf: 'flex-start' }}
+                                    type='primary'>
+                                    Save
+                                </Button>
+                            </>
                         }
                     </>
                     :

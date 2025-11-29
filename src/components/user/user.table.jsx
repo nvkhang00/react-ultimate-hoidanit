@@ -13,10 +13,6 @@ const UserTable = ({ dataTable, loadDataTable }) => {
     const showDrawer = () => {
         setOpen(true);
     };
-    const onClose = () => {
-        setOpen(false);
-        setDetailUserData(null);
-    };
     const handleDelete = async (id) => {
         const response = await deleteUserAPI(id);
         if (response.data) {
@@ -88,7 +84,9 @@ const UserTable = ({ dataTable, loadDataTable }) => {
             <UserDetail
                 detailUserData={detailUserData}
                 open={open}
-                onClose={onClose}
+                setOpen={setOpen}
+                setDetailUserData={setDetailUserData}
+                loadDataTable={loadDataTable}
             />
         </>
     );
