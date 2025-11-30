@@ -5,7 +5,13 @@ import { useState } from 'react';
 import UserDetail from './user.view.detail';
 import { deleteUserAPI } from '../../services/api.service';
 import { showToast } from '../../utils/toast';
-const UserTable = ({ dataTable, loadDataTable }) => {
+const UserTable = ({
+    dataTable,
+    loadDataTable,
+    current,
+    pageSize,
+    total
+}) => {
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
     const [dataUpdate, setDataUpdate] = useState(null);
     const [open, setOpen] = useState(false);
@@ -21,6 +27,10 @@ const UserTable = ({ dataTable, loadDataTable }) => {
         } else {
             showToast.error(response.message);
         }
+    }
+
+    const onChange = (pagination, filters, sorter, extra) => {
+        console.log('Check: ', { pagination, filters, sorter, extra });
     }
     const columns = [
         {
@@ -78,7 +88,21 @@ const UserTable = ({ dataTable, loadDataTable }) => {
 
     return (
         <>
-            <Table columns={columns} dataSource={dataTable} rowKey={'_id'} />
+            <Table
+                columns={columns}
+                dataSource={dataTable}
+                rowKey={'_id'}
+                pagination={
+                    {
+                        current: current,
+                        pageSize: pageSize,
+                        total: total,
+                        showSizeChanger: true,
+                        showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`
+                    }
+                }
+                onChange={onChange}
+            />
             <UpdateUserModal
                 isModalUpdateOpen={isModalUpdateOpen}
                 setIsModalUpdateOpen={setIsModalUpdateOpen}
