@@ -10,8 +10,12 @@ const UserTable = ({
     loadDataTable,
     current,
     pageSize,
-    total
+    total,
+    setCurrent,
+    setPageSize,
+    initialPageSize
 }) => {
+    const DEFAULT_PAGESIZE = [10, 20, 50, 100];
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
     const [dataUpdate, setDataUpdate] = useState(null);
     const [open, setOpen] = useState(false);
@@ -30,13 +34,23 @@ const UserTable = ({
     }
 
     const onChange = (pagination, filters, sorter, extra) => {
-        console.log('Check: ', { pagination, filters, sorter, extra });
+        if (pagination && pagination.current) {
+            if (+pagination.current !== current) {
+                setCurrent(+pagination.current);
+            }
+        }
+
+        if (pagination && pagination.pageSize) {
+            if (+pagination.pageSize !== pageSize) {
+                setPageSize(+pagination.pageSize);
+            }
+        }
     }
     const columns = [
         {
             title: 'STT',
             key: 'stt',
-            render: (_, __, index) => index + 1
+            render: (_, __, index) => index + 1 + (current - 1) * pageSize,
         },
         {
             title: 'ID',
@@ -98,6 +112,8 @@ const UserTable = ({
                         pageSize: pageSize,
                         total: total,
                         showSizeChanger: true,
+                        showQuickJumper: true,
+                        pageSizeOptions: [...new Set([initialPageSize.current, ...DEFAULT_PAGESIZE])],
                         showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`
                     }
                 }
