@@ -113,7 +113,7 @@ const UserTable = ({
                         total: total,
                         showSizeChanger: true,
                         showQuickJumper: true,
-                        pageSizeOptions: [...new Set([initialPageSize.current, ...DEFAULT_PAGESIZE])],
+                        pageSizeOptions: [...new Set([initialPageSize.current, ...DEFAULT_PAGESIZE])].sort((a, b) => a - b),
                         showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`
                     }
                 }
