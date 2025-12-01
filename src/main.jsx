@@ -7,6 +7,7 @@ import UserPage from './pages/user.jsx'
 import BookPage from './pages/book.jsx'
 import TodoApp from './components/todo/TodoApp.jsx'
 import ErrorPage from './pages/error.jsx'
+import { Toaster } from 'react-hot-toast'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
-  <RouterProvider router={router} />
+  <>
+    <RouterProvider router={router} />
+    <Toaster />
+  </>
   // </React.StrictMode>,
 )
