@@ -1,10 +1,26 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { Button, Col, Divider, Form, Input, Row } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginAPI } from "../services/api.service";
+import { showToast } from "../utils/toast";
+import { useState } from "react";
 
 const LoginPage = () => {
-    const onFinish = values => {
-        console.log(values);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const onFinish = async values => {
+        setLoading(true);
+        if (values) {
+            const { email, password } = values;
+            const response = await loginAPI(email, password);
+            if (response.data) {
+                showToast.success('Login successfully.');
+                navigate('/');
+            } else {
+                showToast.error(response.message);
+            }
+            setLoading(false);
+        }
     };
     return (
         <Row justify={'center'} style={{ marginTop: '30px' }}>
@@ -52,7 +68,10 @@ const LoginPage = () => {
                             alignItems: 'center'
 
                         }}>
-                            <Button type="primary" htmlType="submit">
+                            <Button
+                                loading={loading}
+                                type="primary"
+                                htmlType="submit">
                                 Submit
                             </Button>
                             <Link to={'/'}>Go to home page <ArrowRightOutlined /></Link>

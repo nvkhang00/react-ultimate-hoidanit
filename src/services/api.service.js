@@ -28,7 +28,7 @@ const uploadAvatarAPI = (fileImg) => {
             'upload-type': 'avatar',
             'Content-Type': 'multipart/form-data'
         }
-    }
+    };
     const formData = new FormData();
     formData.append('fileImg', fileImg);
     return axios.post(URL_BACKEND, formData, config);
@@ -41,7 +41,17 @@ const registerAPI = (fullName, email, password, phone) => {
         email,
         password,
         phone
-    }
+    };
+    return axios.post(URL_BACKEND, data);
+}
+
+const loginAPI = (username, password) => {
+    const URL_BACKEND = '/api/v1/auth/login';
+    const data = {
+        username,
+        password,
+        delay: 2000
+    };
     return axios.post(URL_BACKEND, data);
 }
 
@@ -51,5 +61,6 @@ export {
     fetchAllUser,
     deleteUserAPI,
     uploadAvatarAPI,
-    registerAPI
+    registerAPI,
+    loginAPI
 }
