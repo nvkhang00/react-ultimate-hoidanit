@@ -1,7 +1,7 @@
-import { Button, Col, Form, Input, Row, Space } from "antd";
+import { Button, Col, Divider, Form, Input, Row, Space } from "antd";
 import { registerAPI } from "../services/api.service";
 import { showToast } from "../utils/toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
     const [form] = Form.useForm();
@@ -28,6 +28,7 @@ const RegisterPage = () => {
                 // onFinishFailed={onFinishFailed}
                 autoComplete='off'
             >
+                <h3 style={{ textAlign: 'center' }}>Register Account</h3>
                 <Row justify={'center'}>
                     <Col xs={24} md={8}>
                         <Form.Item
@@ -63,6 +64,7 @@ const RegisterPage = () => {
                                     }
                                 ]
                             }
+                            validateTrigger={['onBlur', 'onChange']}
                         >
                             <Input />
                         </Form.Item>
@@ -108,7 +110,7 @@ const RegisterPage = () => {
                                     }
                                 ]
                             }
-                            validateTrigger='onChange'
+                            validateTrigger={['onBlur', 'onChange']}
                         >
                             <Input />
                         </Form.Item>
@@ -138,6 +140,8 @@ const RegisterPage = () => {
                             Test
                         </Button> */}
                             {/* </Space> */}
+                            <Divider />
+                            Have an account! <Link>Login here.</Link>
                         </div>
                     </Col>
                 </Row>
