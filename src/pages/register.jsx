@@ -1,4 +1,4 @@
-import { Button, Form, Input, Space } from "antd";
+import { Button, Col, Form, Input, Row, Space } from "antd";
 import { registerAPI } from "../services/api.service";
 import { showToast } from "../utils/toast";
 import { useNavigate } from "react-router-dom";
@@ -28,80 +28,103 @@ const RegisterPage = () => {
                 // onFinishFailed={onFinishFailed}
                 autoComplete='off'
             >
-                <Form.Item
-                    label="Full Name:"
-                    name="fullName"
-                    rules={
-                        [
-                            {
-                                required: true,
-                                message: 'Please input full name.'
+                <Row justify={'center'}>
+                    <Col xs={24} md={8}>
+                        <Form.Item
+                            label="Full Name:"
+                            name="fullName"
+                            rules={
+                                [
+                                    {
+                                        required: true,
+                                        message: 'Please input full name.'
+                                    }
+                                ]
                             }
-                        ]
-                    }
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    label="Email:"
-                    name="email"
-                    rules={
-                        [
-                            {
-                                required: true,
-                                message: 'Please input email.'
-                            },
-                            {
-                                type: 'email',
-                                message: 'Not valid email'
+                        >
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row justify={'center'}>
+                    <Col xs={24} md={8}>
+                        <Form.Item
+                            label="Email:"
+                            name="email"
+                            rules={
+                                [
+                                    {
+                                        required: true,
+                                        message: 'Please input email.'
+                                    },
+                                    {
+                                        type: 'email',
+                                        message: 'Not valid email'
+                                    }
+                                ]
                             }
-                        ]
-                    }
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    validateTrigger='onBlur'
-                    label="Password:"
-                    name="password"
-                    rules={
-                        [
-                            {
-                                required: true,
-                                message: 'Please input password.'
-                            },
-                        ]
-                    }
-                >
-                    <Input.Password />
-                </Form.Item>
-                <Form.Item
-                    label="Phone Number:"
-                    name="phone"
-                    rules={
-                        [
-                            {
-                                required: true,
-                                message: 'Please input phone number.'
-                            },
-                            {
-                                pattern: /\d+/g,
-                                message: 'Wrong format!'
+                        >
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row justify={'center'}>
+                    <Col xs={24} md={8}>
+                    </Col>
+                </Row>
+                <Row justify={'center'}>
+                    <Col xs={24} md={8}>
+                        <Form.Item
+                            validateTrigger='onBlur'
+                            label="Password:"
+                            name="password"
+                            rules={
+                                [
+                                    {
+                                        required: true,
+                                        message: 'Please input password.'
+                                    },
+                                ]
                             }
-                        ]
-                    }
-                >
-                    <Input />
-                </Form.Item>
-                <div>
-                    {/* <Space size={'middle'}> */}
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                    >
-                        Register
-                    </Button>
-                    {/* <Button onClick={() => {
+                        >
+                            <Input.Password />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row justify={'center'}>
+                    <Col xs={24} md={8}>
+                        <Form.Item
+                            label="Phone Number:"
+                            name="phone"
+                            rules={
+                                [
+                                    {
+                                        required: true,
+                                        message: 'Please input phone number.'
+                                    },
+                                    {
+                                        pattern: /^\d+$/g,
+                                        message: 'Wrong format!'
+                                    }
+                                ]
+                            }
+                            validateTrigger='onChange'
+                        >
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row justify={'center'}>
+                    <Col xs={24} md={8}>
+                        <div>
+                            {/* <Space size={'middle'}> */}
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                            >
+                                Register
+                            </Button>
+                            {/* <Button onClick={() => {
                             // get
                             // console.log('Check get only field:', form.getFieldValue('fullName'));
                             // console.log('Check get 1 or more fields:', form.getFieldsValue(['fullName', 'email']));
@@ -114,10 +137,12 @@ const RegisterPage = () => {
                         }}>
                             Test
                         </Button> */}
-                    {/* </Space> */}
-                </div>
-            </Form>
-        </div>
+                            {/* </Space> */}
+                        </div>
+                    </Col>
+                </Row>
+            </Form >
+        </div >
     );
 }
 
